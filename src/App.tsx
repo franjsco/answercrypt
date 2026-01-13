@@ -13,12 +13,12 @@ function App() {
     <div className="min-h-svh flex flex-col items-center justify-center p-6">
       {view === 'home' && (
         <div className="w-full max-w-2xl">
-          <div className="flex flex-col md:flex-row items-center gap-6 bg-card p-6 rounded-lg">
-            <div className="flex-1 text-left">
+          <div className="flex flex-col-reverse md:flex-row items-center gap-6 bg-card p-6 rounded-lg">
+            <div className="flex-1 text-center md:text-left">
               <h1 className="text-3xl font-bold">answercrypt</h1>
               <p className="text-sm mt-2 text-gray-600">answercrypt is a open-source web application that uses end-to-end encryption to keep your secrets safe. It is designed to be easy to use and accessible to everyone.</p>
 
-              <div className="mt-4 flex gap-3">
+              <div className="mt-4 flex gap-3 justify-center md:justify-start">
                 <Button onClick={() => setView('crypt')}><LockClosedIcon />Encrypt Now</Button>
                 <Button variant="outline" onClick={() => setView('decrypt')}> <LockClosedIcon />Decrypt</Button>
               </div>

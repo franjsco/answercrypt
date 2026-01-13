@@ -105,14 +105,14 @@ export function Result({
       <div>
         
         <div className="mt-4">
-                <div className="flex items-center gap-6">
-                  <div className="bg-white rounded-md p-2 shadow">
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+                  <div className="bg-white rounded-md p-2 shadow flex-shrink-0 w-full md:w-auto flex justify-center overflow-hidden">
                     {/* render as canvas so we can export PNG */}
-                    <QRCodeCanvas value={exportContent} size={350} id="qr-canvas" />
+                    <QRCodeCanvas value={exportContent} size={350} id="qr-canvas" className="w-[200px] h-[200px] md:w-[350px] md:h-[350px] max-w-full" />
                   </div>
 
                   <div className="flex flex-col gap-2 w-full">
-                    <Button onClick={async () => {
+                    <Button className="w-full md:w-auto" onClick={async () => {
                       try {
                         const canvas = document.getElementById('qr-canvas') as HTMLCanvasElement | null;
                         if (!canvas) return;
@@ -128,8 +128,8 @@ export function Result({
                       
                       <p className="text-sm text-muted-foreground text-center">Download QR image or download file</p>
 
-                    <Button variant="outline" onClick={copy}><ClipboardIcon />{copied ? 'Copiato' : 'Copy Raw Payload'}</Button>
-                    <Button onClick={download}><ArrowDownTray16SolidIcon />Download File (raw payload)</Button>
+                    <Button className="w-full md:w-auto" variant="outline" onClick={copy}><ClipboardIcon />{copied ? 'Copiato' : 'Copy Raw Payload'}</Button>
+                    <Button className="w-full md:w-auto" onClick={download}><ArrowDownTray16SolidIcon />Download File (raw payload)</Button>
                   
 
                   </div>
@@ -151,9 +151,9 @@ export function Result({
 
 
 
-      <div className="flex gap-2 justify-end mt-20">
-        <Button variant="outline" onClick={onBack}>Back</Button>
-        <Button onClick={() => onDone?.()}>Done</Button>
+      <div className="flex gap-2 justify-end mt-20 flex-col md:flex-row md:justify-end md:items-center">
+        <Button className="w-full md:w-auto" variant="outline" onClick={onBack}>Back</Button>
+        <Button className="w-full md:w-auto" onClick={() => onDone?.()}>Done</Button>
       </div>
     </div>
   );
