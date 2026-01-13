@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button } from './components/ui/button';
 import { CriptaWizard } from './components/encryption/Wizard';
+import { DecryptWizard } from './components/decryption/Wizard';
 import logo from './assets/answercrypt.png';
 import { LockClosedIcon } from './components/icons/heroicons-lock-closed';
 
@@ -37,12 +38,8 @@ function App() {
       )}
 
       {view === 'decrypt' && (
-        <div className="w-full max-w-md space-y-4">
-          <h2 className="text-2xl">Decripta (work in progress)</h2>
-          <p className="text-sm">Questa schermata sarà implementata dopo il flusso Cripta.</p>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={() => setView('home')}>Indietro</Button>
-          </div>
+        <div className="w-full max-w-3xl">
+          <DecryptWizard onDone={() => setView('home')} />
         </div>
       )}
     </div>
