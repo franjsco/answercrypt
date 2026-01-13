@@ -63,7 +63,7 @@ export function QAList({
             </div>
 
             <div className="flex items-center">
-              <Button variant="outline"  size="sm" onClick={() => remove(idx)} aria-label={`Rimuovi domanda ${idx + 1}`}>
+              <Button variant="outline" size="sm" onClick={() => remove(idx)} aria-label={`Rimuovi domanda ${idx + 1}`} disabled={qaPairs.length === 1} title={qaPairs.length === 1 ? 'Cannot remove the only question' : undefined}>
                 <XCircleIcon className="h-6 w-6 text-red-600" />
               </Button>
             </div>
