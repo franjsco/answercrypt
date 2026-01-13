@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { QAPair } from '../types';
+import type { QAPair } from '../../types';
 import { Intro } from './Intro';
 import { QAList } from './QAList';
 import { SecretText } from './SecretText';

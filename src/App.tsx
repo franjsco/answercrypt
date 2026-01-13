@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from './components/ui/button';
-import { CriptaWizard } from './components/Wizard';
+import { CriptaWizard } from './components/encryption/Wizard';
 import logo from './assets/answercrypt.png';
 import { LockClosedIcon } from './components/icons/heroicons-lock-closed';
 

@@ -1,4 +1,4 @@
-import type { QAPair } from '../types';
+import type { QAPair } from '../../types';
 
 // Build passphrase by concatenating answers in order with a delimiter.
 export function buildPassphrase(qaPairs: QAPair[]) {

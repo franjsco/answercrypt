@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Button } from './ui/button';
-import type { QAPair } from '../types';
-import { Textarea } from './ui/textarea';
-import { ArrowDownTray16SolidIcon } from './icons/heroicons-arrow-down-tray-16-solid';
-import { ClipboardIcon } from './icons/heroicons-clipboard';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './ui/accordion';
-import { Alert, AlertDescription, AlertTitle } from './ui/alert';
+import { Button } from '../ui/button';
+import type { QAPair } from '../../types';
+import { Textarea } from '../ui/textarea';
+import { ArrowDownTray16SolidIcon } from '../icons/heroicons-arrow-down-tray-16-solid';
+import { ClipboardIcon } from '../icons/heroicons-clipboard';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion';
+import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { CheckCircle2Icon } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 

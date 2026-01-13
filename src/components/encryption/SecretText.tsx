@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Button } from './ui/button';
-import type { QAPair } from '../types';
+import { Button } from '../ui/button';
+import type { QAPair } from '../../types';
 import { buildPassphrase } from './qaUtils';
-import { encryptText } from '../lib/crypto';
-import { Textarea } from './ui/textarea';
+import { encryptText } from '../../lib/crypto';
+import { Textarea } from '../ui/textarea';
 
 export function SecretText({
   text,

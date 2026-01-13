@@ -1,9 +1,9 @@
-import type { QAPair } from '../types';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { PlusCircleIcon } from './icons/heroicons-plus-circle';
-import { XCircleIcon } from './icons/heroicons-x-circle';
-import { QuestionMarkCircleIcon } from './icons/heroicons-question-mark-circle';
+import type { QAPair } from '../../types';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { PlusCircleIcon } from '../icons/heroicons-plus-circle';
+import { XCircleIcon } from '../icons/heroicons-x-circle';
+import { QuestionMarkCircleIcon } from '../icons/heroicons-question-mark-circle';
 
 const MAX_QA = 5;
 
