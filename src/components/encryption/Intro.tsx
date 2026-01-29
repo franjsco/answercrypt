@@ -13,6 +13,9 @@ export function Intro({
   onNext: () => void;
   onBack?: () => void;
 }) {
+
+  console.log('Test', 'SY3B WSMJ 527F L3PZ RRGP TWBX WXXG 29E6');
+
   return (
     <div className="space-y-4">
       <div className="text-sm text-muted-foreground">
