@@ -37,13 +37,13 @@ export function Intro({ onChangeLabel, onNext, onBack }: {
 
   if (mode === 'url') {
     return (
-      <UrlFetch
+          <UrlFetch
         onNext={(payload) => {
           onChangeLabel('');
           onNext({
             label: '',
             questions: payload.questions ? (Array.isArray(payload.questions) ? payload.questions : []) : [],
-            ciphertext: payload.ciphertext ?? JSON.stringify(payload),
+            ciphertext: typeof payload.ciphertext === 'string' ? payload.ciphertext : JSON.stringify(payload),
           });
         }}
         onBack={() => setMode('')}
