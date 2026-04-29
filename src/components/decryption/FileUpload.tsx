@@ -76,7 +76,7 @@ export function FileUpload({ onNext, onBack }: {
 
       <div className="flex gap-2 justify-end">
         <Button variant="outline" onClick={() => onBack?.()} disabled={loading}>
-          Indietro
+          Back
         </Button>
       </div>
     </div>

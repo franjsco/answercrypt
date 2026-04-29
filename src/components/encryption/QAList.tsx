@@ -79,8 +79,8 @@ export function QAList({
 
       <div className="flex gap-2">
         <div className="flex-1" />
-        <Button variant="outline" onClick={onBack}>Indietro</Button>
-        <Button onClick={onNext} disabled={!canNext}>Avanti</Button>
+        <Button variant="outline" onClick={onBack}>Back</Button>
+        <Button onClick={onNext} disabled={!canNext}>Next</Button>
       </div>
     </div>
   );

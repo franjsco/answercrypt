@@ -70,9 +70,9 @@ export function PastePayload({ onNext, onBack }: {
 
       <div className="flex gap-2 justify-end">
         <Button variant="outline" onClick={() => onBack?.()}>
-          Indietro
+          Back
         </Button>
-        <Button onClick={handlePaste}>Avanti</Button>
+        <Button onClick={handlePaste}>Next</Button>
       </div>
     </div>
   );

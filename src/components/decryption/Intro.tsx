@@ -54,7 +54,7 @@ export function Intro({ onChangeLabel, onNext, onBack }: {
   return (
     <div className="space-y-4">
       <div className="text-sm text-muted-foreground">
-        Scegli un metodo per caricare il tuo payload crittografato.
+        Select how you want to provide the encrypted payload to start the decryption process.
       </div>
 
       {/* Mode cards */}
@@ -64,27 +64,27 @@ export function Intro({ onChangeLabel, onNext, onBack }: {
           className="p-4 rounded border-2 border-gray-200 hover:border-primary hover:bg-primary/5 text-left transition"
         >
           <div className="font-medium text-sm">Paste Payload</div>
-          <div className="text-xs text-muted-foreground mt-1">Incolla il payload grezzo</div>
+          <div className="text-xs text-muted-foreground mt-1">Paste Payload from Clipboard</div>
         </button>
         <button
           onClick={() => setMode('file')}
           className="p-4 rounded border-2 border-gray-200 hover:border-primary hover:bg-primary/5 text-left transition"
         >
-          <div className="font-medium text-sm">Upload File</div>
-          <div className="text-xs text-muted-foreground mt-1">Carica un file</div>
+          <div className="font-medium text-sm">Read File</div>
+          <div className="text-xs text-muted-foreground mt-1">Read from File</div>
         </button>
         <button
-          onClick={() => setMode('url')}
-          className="p-4 rounded border-2 border-gray-200 hover:border-primary hover:bg-primary/5 text-left transition"
+          disabled
+          className="p-4 rounded border-2 border-gray-200 text-left opacity-50 cursor-not-allowed"
         >
-          <div className="font-medium text-sm">Recupera da URL</div>
-          <div className="text-xs text-muted-foreground mt-1">Fetch da servizio remoto</div>
+          <div className="font-medium text-sm">Fetch from Server</div>
+          <div className="text-xs text-muted-foreground mt-1">(cooming soon)</div>
         </button>
       </div>
 
       <div className="flex gap-2 justify-end">
         <Button variant="outline" onClick={() => onBack?.()}>
-          Indietro
+          Back
         </Button>
       </div>
     </div>

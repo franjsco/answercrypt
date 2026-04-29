@@ -124,7 +124,7 @@ export function UrlFetch({ onNext, onBack }: {
 
           <div className="flex gap-2 justify-end">
             <Button variant="outline" onClick={handleBack} disabled={state.loading}>
-              Indietro
+              Back
             </Button>
             <Button onClick={handleFetchQuestion} disabled={state.loading}>
               {state.loading ? 'Caricamento...' : 'Recupera'}
@@ -161,7 +161,7 @@ export function UrlFetch({ onNext, onBack }: {
 
           <div className="flex gap-2 justify-end">
             <Button variant="outline" onClick={handleBack} disabled={state.loading}>
-              Indietro
+              Back
             </Button>
             <Button onClick={handleSubmitAnswer} disabled={state.loading}>
               {state.loading ? 'Invio...' : 'Invia'}

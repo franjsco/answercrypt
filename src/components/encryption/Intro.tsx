@@ -49,9 +49,9 @@ export function Intro({
       
       <div className="flex gap-2 justify-end">
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => onBack?.()}>Indietro</Button>
+          <Button variant="outline" onClick={() => onBack?.()}>Back</Button>
         </div>
-        <Button onClick={onNext}>Avanti</Button>
+        <Button onClick={onNext}>Next</Button>
       </div>
       
     </div>

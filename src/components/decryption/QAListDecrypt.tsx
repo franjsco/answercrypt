@@ -84,7 +84,7 @@ export function QAListDecrypt({
 
       <div className="flex gap-2">
         <div className="flex-1" />
-        <Button variant="outline" onClick={onBack}>Indietro</Button>
+        <Button variant="outline" onClick={onBack}>Back</Button>
         <Button onClick={handleDecrypt} disabled={loading || !canDecrypt}>{loading ? 'Decrypting...' : 'Decrypt'}</Button>
       </div>
     </div>
