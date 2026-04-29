@@ -1,7 +1,7 @@
 
 # answercrypt
 
-**answercrypt** is a open-source web application that uses client-side encryption to keep your secrets safe.
+**answercrypt** is an open-source web application that uses client-side encryption to keep your secrets safe.
 
 It is designed to be easy to use and accessible to everyone.
 
