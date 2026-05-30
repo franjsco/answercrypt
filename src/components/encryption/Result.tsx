@@ -8,6 +8,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { CheckCircle2Icon } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { buildPayloadContent } from '../../lib/payload';
+import { storePayload } from '../../lib/remoteServer';
 
 export function Result({
   ciphertext,
@@ -25,32 +29,23 @@ export function Result({
   onDone?: () => void;
 }) {
   const [copied, setCopied] = useState(false);
-
-  const buildExportContent = () => {
-    const lines: string[] = [];
-    lines.push('---');
-    lines.push('version: 1');
-    lines.push('check: 45559');
-    lines.push(`label: ${label ?? ''}`);
-    lines.push('questions:');
-    qaPairs.forEach((q) => {
-      lines.push(`  - ${q.question}`);
-    });
-    lines.push('---');
-    lines.push('');
-    lines.push(ciphertext);
-    return lines.join('\n');
-  };
+  const [serverUrl, setServerUrl] = useState('');
+  const [serverApiKey, setServerApiKey] = useState('');
+  const [serverQuestion, setServerQuestion] = useState('');
+  const [serverAnswer, setServerAnswer] = useState('');
+  const [serverLoading, setServerLoading] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [serverSuccess, setServerSuccess] = useState<string | null>(null);
 
   const copy = async () => {
-    const payload = buildExportContent();
+    const payload = exportContent;
     await navigator.clipboard.writeText(payload);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
 
   const download = () => {
-    const payload = buildExportContent();
+    const payload = exportContent;
     const blob = new Blob([payload], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -60,7 +55,38 @@ export function Result({
     URL.revokeObjectURL(url);
   };
 
-  const exportContent = buildExportContent();
+  const exportContent = buildPayloadContent({
+    label,
+    qaPairs,
+    ciphertext,
+  });
+
+  const handleServerStore = async () => {
+    setServerError(null);
+    setServerSuccess(null);
+
+    if (!serverUrl.trim()) return setServerError('Insert the server endpoint URL');
+    if (!serverQuestion.trim()) return setServerError('Insert the server question');
+    if (!serverAnswer.trim()) return setServerError('Insert the server answer');
+
+    try {
+      setServerLoading(true);
+      const response = await storePayload(
+        serverUrl,
+        serverApiKey,
+        serverQuestion,
+        serverAnswer,
+        exportContent,
+      );
+
+      setServerSuccess(response.message || 'Payload stored successfully on the server');
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e);
+      setServerError(msg || 'Failed to store payload on server');
+    } finally {
+      setServerLoading(false);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -144,6 +170,75 @@ export function Result({
               <p className="text-muted-foreground text-sm">
                 This is your encrypted data along with the questions. Keep it safe!
               </p>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <Accordion type="single" collapsible className="mt-4">
+          <AccordionItem value="server-store">
+            <AccordionTrigger>Store On Server</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-4 border rounded-md p-4 bg-gray-50">
+                <div className="text-sm text-muted-foreground">
+                  Store the raw payload on a remote server using the dedicated server question and answer.
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="server-url">Endpoint URL</Label>
+                  <Input
+                    id="server-url"
+                    type="url"
+                    placeholder="https://example.com"
+                    value={serverUrl}
+                    onChange={(e) => setServerUrl(e.target.value)}
+                    disabled={serverLoading}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="server-api-key">API Key</Label>
+                  <Input
+                    id="server-api-key"
+                    type="password"
+                    placeholder="Optional API key"
+                    value={serverApiKey}
+                    onChange={(e) => setServerApiKey(e.target.value)}
+                    disabled={serverLoading}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="server-question">Server Question</Label>
+                  <Input
+                    id="server-question"
+                    placeholder="eg. Shared recovery question"
+                    value={serverQuestion}
+                    onChange={(e) => setServerQuestion(e.target.value)}
+                    disabled={serverLoading}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="server-answer">Server Answer</Label>
+                  <Input
+                    id="server-answer"
+                    type="password"
+                    placeholder="Insert the answer used for retrieval"
+                    value={serverAnswer}
+                    onChange={(e) => setServerAnswer(e.target.value)}
+                    disabled={serverLoading}
+                  />
+                </div>
+
+                {serverError && <div className="text-sm text-destructive">{serverError}</div>}
+                {serverSuccess && <div className="text-sm text-green-700">{serverSuccess}</div>}
+
+                <div className="flex justify-end">
+                  <Button onClick={handleServerStore} disabled={serverLoading}>
+                    {serverLoading ? 'Storing...' : 'Store On Server'}
+                  </Button>
+                </div>
+              </div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>

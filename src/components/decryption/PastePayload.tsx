@@ -1,33 +1,7 @@
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
-
-function parsePayload(payload: string) {
-  const lines = payload.split(/\r?\n/);
-  const firstSep = lines.indexOf('---');
-  if (firstSep === -1) throw new Error('Invalid payload: missing header');
-  const secondSep = lines.indexOf('---', firstSep + 1);
-  if (secondSep === -1) throw new Error('Invalid payload: missing second header');
-
-  const headerLines = lines.slice(firstSep + 1, secondSep);
-  const bodyLines = lines.slice(secondSep + 1);
-
-  const questions: string[] = [];
-  let label: string | undefined;
-
-  for (const ln of headerLines) {
-    const trimmed = ln.trim();
-    if (trimmed.startsWith('label:')) {
-      label = trimmed.replace(/^label:\s*/, '').trim();
-    }
-    if (trimmed.startsWith('- ')) {
-      questions.push(trimmed.replace(/^-\s*/, '').trim());
-    }
-  }
-
-  const ciphertext = bodyLines.join('\n').trim();
-  return { questions, label, ciphertext };
-}
+import { parsePayload } from '../../lib/payload';
 
 export function PastePayload({ onNext, onBack }: {
   onNext: (parsed: { label?: string; questions: string[]; ciphertext?: string }) => void;

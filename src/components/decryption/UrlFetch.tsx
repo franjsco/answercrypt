@@ -2,18 +2,19 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { parsePayload, type ParsedPayload } from '../../lib/payload';
+import { getQuestion, retrievePayload } from '../../lib/remoteServer';
 
 interface FetchState {
-  step: 'url' | 'question' | 'answer';
+  step: 'url' | 'question';
   url?: string;
   question?: string;
-  payload?: Record<string, unknown>;
   error?: string;
   loading?: boolean;
 }
 
 export function UrlFetch({ onNext, onBack }: {
-  onNext: (payload: Record<string, unknown>) => void;
+  onNext: (payload: ParsedPayload) => void;
   onBack?: () => void;
 }) {
   const [state, setState] = useState<FetchState>({ step: 'url' });
@@ -29,26 +30,13 @@ export function UrlFetch({ onNext, onBack }: {
     setState((s) => ({ ...s, error: undefined, loading: true }));
 
     try {
-      const response = await fetch(`${urlInput}?k=12345`, {
-        method: 'GET',
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const payload = await response.json();
-
-      if (!payload.question) {
-        throw new Error('Response missing "question" field');
-      }
+      const question = await getQuestion(urlInput);
 
       setState((s) => ({
         ...s,
         step: 'question',
         url: urlInput,
-        question: payload.question,
-        payload,
+        question,
         loading: false,
       }));
     } catch (e: unknown) {
@@ -66,24 +54,13 @@ export function UrlFetch({ onNext, onBack }: {
     setState((s) => ({ ...s, error: undefined, loading: true }));
 
     try {
-      const updatedPayload = {
-        ...state.payload,
-        answer: answerInput.trim(),
-      };
+      const payload = await retrievePayload(state.url!, answerInput.trim());
+      const parsed = parsePayload(payload);
+      if (!parsed.questions.length) throw new Error('No questions found in payload');
+      if (!parsed.ciphertext) throw new Error('Missing ciphertext in payload');
 
-      const response = await fetch(state.url!, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedPayload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const finalPayload = await response.json();
-      setState((s) => ({ ...s, step: 'answer', payload: finalPayload, loading: false }));
-      onNext(finalPayload);
+      setState((s) => ({ ...s, loading: false }));
+      onNext(parsed);
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : String(e);
       setState((s) => ({ ...s, error: msg || 'Failed to submit answer', loading: false }));
@@ -113,7 +90,7 @@ export function UrlFetch({ onNext, onBack }: {
             <Input
               id="url"
               type="url"
-              placeholder="https://example.com/fetch"
+              placeholder="https://example.com"
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               disabled={state.loading}
@@ -164,7 +141,7 @@ export function UrlFetch({ onNext, onBack }: {
               Back
             </Button>
             <Button onClick={handleSubmitAnswer} disabled={state.loading}>
-              {state.loading ? 'Invio...' : 'Invia'}
+              {state.loading ? 'Sending...' : 'Send'}
             </Button>
           </div>
         </>
