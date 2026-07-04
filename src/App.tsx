@@ -27,7 +27,7 @@ function App() {
         <section className="w-full">
           <div className="glass-hero flex flex-col justify-between p-8 sm:p-10 md:p-12">
             <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
-              <div className="order-2 lg:order-1">
+              <div>
                 <h1 className="max-w-[11ch] text-5xl font-black leading-none tracking-[-0.08em] text-foreground sm:text-6xl">
                   Protect your
                   <br />
@@ -61,7 +61,7 @@ function App() {
                 </div>
               </div>
 
-              <div className="order-1 flex items-center justify-center lg:order-2 lg:justify-end">
+              <div className="flex items-center justify-center lg:justify-end">
                 <div className="flex items-center justify-center rounded-[2rem] bg-white/55 p-6 shadow-[0_20px_60px_rgba(22,26,45,0.08)] sm:p-7">
                   <img src={logo} className="h-48 w-48 rounded-[32px] object-cover sm:h-60 sm:w-60" alt="AnswerCrypt Logo" />
                 </div>
