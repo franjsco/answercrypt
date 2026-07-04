@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { parsePayload } from '../../lib/payload';
+import { Textarea } from '../ui/textarea';
 
 export function PastePayload({ onNext, onBack }: {
   onNext: (parsed: { label?: string; questions: string[]; ciphertext?: string }) => void;
@@ -29,11 +30,11 @@ export function PastePayload({ onNext, onBack }: {
         Paste your raw payload exported by the Encrypt flow.
       </div>
 
-      <div className="bg-gray-50 rounded-sm p-4 border">
+      <div className="soft-panel p-4 sm:p-5">
         <Label htmlFor="payload">Raw Payload</Label>
-        <textarea
+        <Textarea
           id="payload"
-          className="mt-1 block w-full rounded border px-3 py-2 min-h-[120px] bg-white"
+          className="mt-2 min-h-[160px] bg-white/90"
           value={payload}
           onChange={(e) => setPayload(e.target.value)}
           placeholder="---\nversion: 1\ncheck: 45559\nquestions:\n  - ...\n---\n<CIPHERTEXT>"

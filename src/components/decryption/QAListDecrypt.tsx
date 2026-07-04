@@ -60,7 +60,7 @@ export function QAListDecrypt({
 
       <div className="space-y-3">
         {qaPairs.map((pair, idx) => (
-          <div key={idx} className="bg-gray-50 rounded-sm p-4 border flex gap-2 items-center">
+          <div key={idx} className="soft-panel flex gap-2 items-center p-4">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <QuestionMarkCircleIcon className="h-5 w-5 text-muted-foreground" />
@@ -70,7 +70,7 @@ export function QAListDecrypt({
               <div className="text-sm mb-2 font-medium">{pair.question}</div>
 
               <Input
-                className="mt-1 w-full rounded border px-2 py-1 bg-white"
+                className="mt-1 w-full bg-white/90"
                 placeholder={`eg. Fluffy`}
                 value={pair.answer}
                 onChange={(e) => updateAnswerAt(idx, e.target.value)}

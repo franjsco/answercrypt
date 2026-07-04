@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>answercrypt | secure backup, anywhere</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f5f0;
+      --panel: rgba(255, 255, 255, 0.76);
+      --panel-strong: #ffffff;
+      --text: #171717;
+      --muted: #5f6370;
+      --line: rgba(23, 23, 23, 0.08);
+      --accent: #635bff;
+      --accent-soft: #eceaff;
+      --accent-dark: #211d63;
+      --shadow: 0 24px 70px rgba(22, 26, 45, 0.10);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at top left, #fff8d7 0, rgba(255, 248, 215, 0) 32%),
+        radial-gradient(circle at top right, #e9e6ff 0, rgba(233, 230, 255, 0) 34%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      line-height: 1.5;
+      padding: 24px;
+    }
+
+    a { color: inherit; }
+
+    .shell {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(24, 23, 34, 0.06);
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a,
+    .btn {
+      text-decoration: none;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover { background: rgba(99, 91, 255, 0.08); color: var(--text); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .hero-copy,
+    .hero-card,
+    .section-card,
+    .scenario,
+    .step,
+    .point,
+    .cta {
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 56px;
+      border-radius: calc(var(--radius-xl) + 8px);
+    }
+
+    .eyebrow,
+    .mini-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--line);
+      color: var(--accent-dark);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 6vw, 5.4rem);
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      margin-bottom: 24px;
+      max-width: 10ch;
+    }
+
+    .hero-copy p {
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 22px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: #fff;
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); background: #000; }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover { background: #fff; }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-pills span {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-card {
+      border-radius: calc(var(--radius-xl) + 8px);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -80px -40px auto auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 91, 255, 0.22), rgba(99, 91, 255, 0));
+      pointer-events: none;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #38c172;
+      box-shadow: 0 0 0 4px rgba(56, 193, 114, 0.16);
+    }
+
+    .vault-preview {
+      display: grid;
+      gap: 14px;
+      position: relative;
+    }
+
+    .vault-block {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(23, 23, 23, 0.07);
+    }
+
+    .vault-block strong {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .vault-block p {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .cipher {
+      background: linear-gradient(180deg, #1e1d29, #111017);
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .cipher p {
+      color: rgba(255, 255, 255, 0.68);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.82rem;
+      word-break: break-all;
+    }
+
+    .card-note {
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: rgba(99, 91, 255, 0.08);
+      color: var(--accent-dark);
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .sections {
+      display: grid;
+      gap: 24px;
+    }
+
+    .section-card {
+      padding: 40px;
+      border-radius: var(--radius-xl);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      margin-bottom: 8px;
+    }
+
+    .section-head p,
+    .section-card > p {
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .problem-grid,
+    .scenarios,
+    .steps,
+    .points {
+      display: grid;
+      gap: 18px;
+    }
+
+    .problem-grid,
+    .steps,
+    .points {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .scenarios {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .panel-item,
+    .scenario,
+    .step,
+    .point {
+      padding: 24px;
+      border-radius: var(--radius-lg);
+    }
+
+    .panel-item {
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(23, 23, 23, 0.06);
+    }
+
+    .panel-item strong,
+    .scenario strong,
+    .step strong,
+    .point strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .panel-item p,
+    .scenario p,
+    .step p,
+    .point p,
+    .step li {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .scenario {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario::after {
+      content: "";
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      right: -40px;
+      bottom: -60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 91, 255, 0.14), rgba(99, 91, 255, 0));
+    }
+
+    .scenario span,
+    .step-number {
+      display: inline-flex;
+      margin-bottom: 14px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(99, 91, 255, 0.1);
+      color: var(--accent-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .step ul {
+      padding-left: 18px;
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .point {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.7));
+    }
+
+    .cta {
+      padding: 40px;
+      border-radius: calc(var(--radius-xl) + 6px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 4px;
+    }
+
+    .cta p {
+      color: var(--muted);
+      max-width: 52ch;
+      margin-top: 10px;
+    }
+
+    footer {
+      padding: 26px 4px 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      body { padding: 16px; }
+      .hero,
+      .problem-grid,
+      .scenarios,
+      .steps,
+      .points,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+      .hero { grid-template-columns: 1fr; }
+      .hero-copy,
+      .hero-card,
+      .section-card,
+      .cta { padding: 28px; }
+      .section-head,
+      .cta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .site-header {
+        border-radius: 28px;
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-header {
+        position: static;
+        margin-bottom: 16px;
+      }
+      .nav { justify-content: flex-start; }
+      h1 { max-width: 12ch; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="site-header">
+      <div class="logo">answercrypt</div>
+      <nav class="nav">
+        <a href="#problem">Perche</a>
+        <a href="#scenarios">Scenari</a>
+        <a href="#how">Come funziona</a>
+        <a href="#trust">Principi</a>
+        <a href="https://answercrypt-test.vercel.app/" class="btn btn-primary">Apri l'app</a>
+      </nav>
+    </header>
+
+    <main class="sections">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Side project nato da un bisogno reale</div>
+          <h1>Un backup cifrato delle tue chiavi, anche quando sei in viaggio.</h1>
+          <p>
+            <strong>answercrypt</strong> nasce da un'esigenza molto pratica: avere sempre con me codici di accesso, chiavi di recupero e informazioni sensibili, senza lasciarle leggibili a chiunque trovi il file, il telefono o il link.
+          </p>
+          <div class="hero-actions">
+            <a href="https://answercrypt-test.vercel.app/" class="btn btn-primary">Prova answercrypt</a>
+            <a href="#scenarios" class="btn btn-secondary">Vedi gli scenari d'uso</a>
+          </div>
+          <div class="hero-pills">
+            <span>Cifratura lato client</span>
+            <span>Nessun segreto in chiaro sul server</span>
+            <span>Open source</span>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div>
+            <div class="card-top">
+              <div class="mini-label">Pronto per il viaggio</div>
+              <div class="status"><span class="dot"></span> cifrato</div>
+            </div>
+            <div class="vault-preview">
+              <div class="vault-block">
+                <strong>Contenuto originale</strong>
+                <p>Seed phrase wallet, codici 2FA, recovery key email, PIN di emergenza.</p>
+              </div>
+              <div class="vault-block cipher">
+                <strong>Backup condivisibile</strong>
+                <p>U2FsdGVkX1+g7Jv3e8aP1sYz0mF2QdLk9r...cbQ8n2tKxw1mY</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-note">
+            Lo puoi tenere in cloud, in note, in email o su una chiavetta: senza le risposte giuste resta solo testo cifrato.
+          </div>
+        </aside>
+      </section>
+
+      <section id="problem" class="section-card">
+        <div class="section-head">
+          <div>
+            <div class="mini-label">Il problema</div>
+            <h2>Tra comodita e rischio di solito perdi qualcosa.</h2>
+          </div>
+          <p>
+            Se porti con te un backup leggibile e comodo, esponi dati molto delicati. Se lo rendi troppo complesso da recuperare, rischi di non averlo quando serve davvero.
+          </p>
+        </div>
+        <div class="problem-grid">
+          <div class="panel-item">
+            <strong>In viaggio</strong>
+            <p>Hai bisogno di accedere a un codice o una recovery key anche da un dispositivo non tuo o in una situazione stressante.</p>
+          </div>
+          <div class="panel-item">
+            <strong>Backup distribuiti</strong>
+            <p>Vuoi tenere una copia in piu posti senza creare un singolo file in chiaro che compromette tutto.</p>
+          </div>
+          <div class="panel-item">
+            <strong>Condivisione selettiva</strong>
+            <p>Vuoi poter lasciare un backup a portata di mano, ma non leggibile da chiunque lo intercetti.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="scenarios" class="section-card">
+        <div class="section-head">
+          <div>
+            <div class="mini-label">Scenari di utilizzo</div>
+            <h2>Quando answercrypt ha davvero senso.</h2>
+          </div>
+          <p>
+            Non sostituisce necessariamente un password manager. E utile soprattutto per quei dati critici che vuoi poter recuperare ovunque, ma non lasciare mai leggibili in giro.
+          </p>
+        </div>
+        <div class="scenarios">
+          <article class="scenario">
+            <span>01 · Travel backup</span>
+            <strong>Se perdi lo zaino o il telefono</strong>
+            <p>Tieni online una copia cifrata di codici di recupero, documenti di accesso o chiavi di emergenza. Se succede qualcosa mentre sei fuori, il backup e raggiungibile ma non leggibile da terzi.</p>
+          </article>
+          <article class="scenario">
+            <span>02 · Side project ops</span>
+            <strong>Accessi a servizi sparsi</strong>
+            <p>API keys, credenziali tecniche, codici admin o recovery codes che non usi ogni giorno ma che ti servono quando un progetto va giu o devi intervenire al volo.</p>
+          </article>
+          <article class="scenario">
+            <span>03 · Family fallback</span>
+            <strong>Informazioni da recuperare in emergenza</strong>
+            <p>Puoi predisporre un archivio cifrato con istruzioni o codici importanti, lasciando che solo chi conosce alcune risposte possa aprirlo.</p>
+          </article>
+          <article class="scenario">
+            <span>04 · Multiple locations</span>
+            <strong>Una copia in piu posti</strong>
+            <p>Email a te stesso, cloud drive, note private, repository personale o USB: puoi duplicare il blocco cifrato dove ti e piu comodo senza duplicare dati in chiaro.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="how" class="section-card">
+        <div class="section-head">
+          <div>
+            <div class="mini-label">Come funziona</div>
+            <h2>Tre passaggi, senza complicare il recupero.</h2>
+          </div>
+          <p>
+            L'idea e semplice: usi risposte note a te per derivare la chiave con cui cifrare un testo. Il risultato e un blocco che puoi conservare dove vuoi.
+          </p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <strong>Prepari il contenuto</strong>
+            <p>Inserisci quello che vuoi proteggere: codici di backup, PIN, seed phrase, recovery keys o note operative sensibili.</p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <strong>Definisci le risposte</strong>
+            <p>Scegli una o piu risposte che solo tu puoi ricostruire con affidabilita anche a distanza di tempo.</p>
+            <ul>
+              <li>Abbastanza personali da non essere banali</li>
+              <li>Abbastanza stabili da ricordarle anche in emergenza</li>
+            </ul>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <strong>Salvi il risultato cifrato</strong>
+            <p>Copi il testo cifrato e lo metti dove ti e piu utile: cloud, note, email, file locale o supporto offline.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="trust" class="section-card">
+        <div class="section-head">
+          <div>
+            <div class="mini-label">Principi</div>
+            <h2>Progettato per ridurre il rischio pratico.</h2>
+          </div>
+          <p>
+            L'obiettivo non e sembrare complesso, ma essere utile: minimizzare quante volte i tuoi dati sensibili esistono in chiaro e rendere il backup piu sereno da distribuire.
+          </p>
+        </div>
+        <div class="points">
+          <div class="point">
+            <strong>Cifratura lato client</strong>
+            <p>La trasformazione avviene nel browser, prima di qualsiasi eventuale salvataggio o condivisione del contenuto cifrato.</p>
+          </div>
+          <div class="point">
+            <strong>Open source e verificabile</strong>
+            <p>Puoi vedere il codice, capirne il comportamento e usarlo senza affidarti a una scatola nera proprietaria.</p>
+          </div>
+          <div class="point">
+            <strong>Pensato per il backup, non per l'attrito</strong>
+            <p>Serve a darti un paracadute pratico quando ti serve recuperare qualcosa di importante, non a complicarti la vita ogni giorno.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta">
+        <div>
+          <div class="mini-label">Open source</div>
+          <h2>Se ti ritrovi in questo problema, answercrypt probabilmente nasce anche per te.</h2>
+          <p>
+            Provalo per capire se si adatta al tuo flusso di backup personale, oppure leggi il codice e adattalo al tuo uso.
+          </p>
+        </div>
+        <div class="hero-actions">
+          <a href="https://answercrypt-test.vercel.app/" class="btn btn-primary">Apri la demo</a>
+          <a href="https://github.com/franjsco/answercrypt" class="btn btn-secondary">Vai su GitHub</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>answercrypt · backup cifrati leggibili solo da chi conosce le risposte giuste</span>
+      <span>Nuova concept landing: `index2.html`</span>
+    </footer>
+  </div>
+</body>
+</html>

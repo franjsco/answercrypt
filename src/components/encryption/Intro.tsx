@@ -13,9 +13,6 @@ export function Intro({
   onNext: () => void;
   onBack?: () => void;
 }) {
-
-  console.log('Test', 'SY3B WSMJ 527F L3PZ RRGP TWBX WXXG 29E6');
-
   return (
     <div className="space-y-4">
       <div className="text-sm text-muted-foreground">
@@ -28,7 +25,7 @@ export function Intro({
         </ol>
       </div>
 
-      <div className="bg-gray-50 rounded-sm p-4 border">
+      <div className="soft-panel p-4 sm:p-5">
         <Label htmlFor="label">Label</Label>
         <Input
           id="label"
@@ -43,7 +40,7 @@ export function Intro({
             }
           }}
           placeholder="E.g. work credentials"
-          className="mt-1 block w-full rounded border px-3 py-2 bg-white"
+          className="mt-2 bg-white/90"
         />
       </div>
       

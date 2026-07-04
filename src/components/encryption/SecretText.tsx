@@ -49,12 +49,12 @@ export function SecretText({
               </div>
 
 
-      <div className="bg-gray-50 rounded-sm p-4 border">
+      <div className="soft-panel p-4 sm:p-5">
         <label className="block">
           <div className="text-sm font-medium mb-2">Text to encrypt</div>
           <Textarea
             autoFocus
-            className="mt-1 block w-full rounded border px-3 py-2 min-h-[120px] bg-white"
+            className="mt-1 min-h-[140px] bg-white/90"
             value={text}
             onChange={(e) => onChangeText(e.target.value)}
           />

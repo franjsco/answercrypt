@@ -54,24 +54,24 @@ export function Intro({ onChangeLabel, onNext, onBack }: {
       </div>
 
       {/* Mode cards */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid gap-3 md:grid-cols-3">
         <button
           onClick={() => setMode('paste')}
-          className="p-4 rounded border-2 border-gray-200 hover:border-primary hover:bg-primary/5 text-left transition"
+          className="soft-panel text-left transition hover:-translate-y-0.5 p-4"
         >
           <div className="font-medium text-sm">Paste Payload</div>
           <div className="text-xs text-muted-foreground mt-1">Paste Payload from Clipboard</div>
         </button>
         <button
           onClick={() => setMode('file')}
-          className="p-4 rounded border-2 border-gray-200 hover:border-primary hover:bg-primary/5 text-left transition"
+          className="soft-panel text-left transition hover:-translate-y-0.5 p-4"
         >
           <div className="font-medium text-sm">Read File</div>
           <div className="text-xs text-muted-foreground mt-1">Read from File</div>
         </button>
         <button
           onClick={() => setMode('url')}
-          className="p-4 rounded border-2 border-gray-200 hover:border-primary hover:bg-primary/5 text-left transition"
+          className="soft-panel text-left transition hover:-translate-y-0.5 p-4"
         >
           <div className="font-medium text-sm">Fetch from Server</div>
           <div className="text-xs text-muted-foreground mt-1">Retrieve payload from remote server</div>

@@ -36,11 +36,12 @@ export function FileUpload({ onNext, onBack }: {
         Upload the file exported by the Encrypt flow.
       </div>
 
-      <div className="bg-gray-50 rounded-sm p-4 border">
+      <div className="soft-panel p-4 sm:p-5">
         <Label htmlFor="file">Upload file</Label>
         <Input
           id="file"
           type="file"
+          className="mt-2 bg-white/90"
           onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
           disabled={loading}
         />

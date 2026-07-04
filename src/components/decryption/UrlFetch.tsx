@@ -85,12 +85,13 @@ export function UrlFetch({ onNext, onBack }: {
             Enter the URL of the remote service to fetch the encrypted payload.
           </div>
 
-          <div className="bg-gray-50 rounded-sm p-4 border">
+          <div className="soft-panel p-4 sm:p-5">
             <Label htmlFor="url">URL</Label>
             <Input
               id="url"
               type="url"
               placeholder="https://example.com"
+              className="mt-2 bg-white/90"
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               disabled={state.loading}
@@ -116,9 +117,9 @@ export function UrlFetch({ onNext, onBack }: {
             Answer the question from the remote service.
           </div>
 
-          <div className="bg-gray-50 rounded-sm p-4 border">
+          <div className="soft-panel p-4 sm:p-5">
             <Label>Question</Label>
-            <div className="mt-2 p-3 bg-white border rounded text-sm font-medium">
+            <div className="mt-2 rounded-xl border border-border bg-white/90 p-3 text-sm font-medium">
               {state.question}
             </div>
 
@@ -128,6 +129,7 @@ export function UrlFetch({ onNext, onBack }: {
             <Input
               id="answer"
               placeholder="Enter your answer"
+              className="mt-2 bg-white/90"
               value={answerInput}
               onChange={(e) => setAnswerInput(e.target.value)}
               disabled={state.loading}

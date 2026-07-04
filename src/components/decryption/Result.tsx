@@ -59,7 +59,7 @@ export function DecryptResult({
 
       <div>
         <div className="text-sm font-medium mb-2">Questions</div>
-        <ul className="list-disc pl-5 bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+        <ul className="list-disc overflow-x-auto rounded-2xl bg-white/70 p-4 pl-5 text-sm">
           {qaPairs.map((q, idx) => (
             <li key={idx} className="mb-1">
               <div className="font-medium"><strong>{q.question}</strong></div>

@@ -16,9 +16,13 @@ export function CriptaWizard({ onDone }: { onDone?: () => void }) {
   const goBack = () => setStep((s) => Math.max(1, s - 1));
 
   return (
-    <div className="w-full max-w-2xl p-4">
-      <div className="mb-4">
-        <h2 className="text-2xl font-semibold">Encrypt — step {step} of 4</h2>
+    <div className="wizard-panel mx-auto w-full max-w-3xl">
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div className="section-chip mb-3">Encrypt flow</div>
+          <h2 className="text-3xl font-bold tracking-[-0.05em]">Encrypt, then keep the payload wherever you want.</h2>
+        </div>
+        <div className="pill text-sm font-medium text-muted-foreground">Step {step} of 4</div>
       </div>
 
       {step === 1 && (

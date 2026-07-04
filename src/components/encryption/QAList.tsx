@@ -42,20 +42,20 @@ export function QAList({
 
       <div className="space-y-3">
         {qaPairs.map((pair, idx) => (
-          <div key={idx} className="bg-gray-50 rounded-sm p-4 border flex gap-2 items-center">
+          <div key={idx} className="soft-panel flex items-center gap-2 p-4">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
                 <QuestionMarkCircleIcon className="h-5 w-5 text-muted-foreground" />
                 <label className="block text-sm font-medium">Question {idx + 1}</label>
               </div>
               <Input
-                className="w-full rounded border px-2 py-1 bg-white"
+                className="w-full bg-white/90"
                 placeholder={`eg. Name of your first pet`}
                 value={pair.question}
                 onChange={(e) => updateAt(idx, 'question', e.target.value)}
               />
               <Input
-                className="mt-2 w-full rounded border px-2 py-1 bg-white"
+                className="mt-2 w-full bg-white/90"
                 placeholder={`eg. Fluffy`}
                 value={pair.answer}
                 onChange={(e) => updateAt(idx, 'answer', e.target.value)}

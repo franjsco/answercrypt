@@ -102,7 +102,7 @@ export function Result({
           <AccordionItem value="qa">
             <AccordionTrigger>Questions / Answers</AccordionTrigger>
             <AccordionContent>
-              <ul className=" list-disc pl-5 bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+              <ul className="list-disc overflow-x-auto rounded-2xl bg-white/70 p-4 pl-5 text-sm">
               {qaPairs.map((q, idx) => (
                 <li key={idx} className="mb-1">
                   <div className="font-medium"><strong>{q.question}</strong></div>
@@ -116,7 +116,7 @@ export function Result({
           <AccordionItem value="secrets">
             <AccordionTrigger>Secrets</AccordionTrigger>
             <AccordionContent>
-              <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+              <pre className="overflow-x-auto rounded-2xl bg-white/70 p-4 text-sm">
                 {textToEncrypt}
               </pre>
             </AccordionContent>
@@ -132,7 +132,7 @@ export function Result({
         
         <div className="mt-4">
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
-                  <div className="bg-white rounded-md p-2 shadow flex-shrink-0 w-full md:w-auto flex justify-center overflow-hidden">
+                  <div className="soft-panel flex w-full flex-shrink-0 justify-center overflow-hidden p-2 md:w-auto">
                     {/* render as canvas so we can export PNG */}
                     <QRCodeCanvas value={exportContent} size={350} id="qr-canvas" className="w-[200px] h-[200px] md:w-[350px] md:h-[350px] max-w-full" />
                   </div>
@@ -178,7 +178,7 @@ export function Result({
           <AccordionItem value="server-store">
             <AccordionTrigger>Store On Server</AccordionTrigger>
             <AccordionContent>
-              <div className="space-y-4 border rounded-md p-4 bg-gray-50">
+              <div className="soft-panel space-y-4 p-4">
                 <div className="text-sm text-muted-foreground">
                   Store the raw payload on a remote server using the dedicated server question and answer.
                 </div>
